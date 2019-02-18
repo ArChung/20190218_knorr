@@ -1,14 +1,13 @@
 Vue.use(VueAwesomeSwiper)
-
+var vm = null;
 
 var app = new Vue({
     el: '#app',
     data: {
-        pageChannel: 'mainPage',
-        popChannel: 'form',
-        introAnimation: true,
+        pageChannel: 'rule',
+        popChannel: '',
+        introAnimation: false,
         recipeChannel: 0,
-        wannaBuy: false,
         introAni: null,
         htmlScollPosition: 0,
         formErrors: [],
@@ -48,10 +47,25 @@ var app = new Vue({
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev'
+            },
+            loop: true,
+            on: {
+                click: function (e) {
+                    if($(e.target).hasClass('buyBtn')){
+                        vm.onProBuy();
+                    }
+                    if($(e.target).hasClass('cloz')){
+                        vm.onProBuyCloz();
+                    }
+                }
             }
         },
         products: vueDataProducts,
-
+        showTopBtn: false,
+        windowScrollTop: 0,
+    },
+    created: function () {
+        vm = this;
     },
     computed: {
         product_Swiper: function () {
@@ -101,6 +115,8 @@ var app = new Vue({
             }
             this.pageChannel = 'rule';
         }
+
+        t.initScrollEvent();
     },
     watch: {
         demoIndex: function (val) {
@@ -127,8 +143,12 @@ var app = new Vue({
         GAPage: function (val) {
             this.ga_page(val);
         },
+        windowScrollTop: function (val) {
+            this.showTopBtn = (val > 250) ? true : false;
+        },
     },
     methods: {
+        // get url for rule
         getUrlParameter: function (sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                 sURLVariables = sPageURL.split('&'),
@@ -144,12 +164,13 @@ var app = new Vue({
                 }
             }
         },
+        // GA
         ga_page: function (inv) {
-            console.log('GA_PAGE: ', inv);
+            // console.log('GA_PAGE: ', inv);
             ga('send', 'pageview', inv);
         },
         ga_btn: function (inv) {
-            console.log('GA_BUTTON: ', inv);
+            // console.log('GA_BUTTON: ', inv);
             ga('send', 'event', 'btn', inv);
         },
         plantsPopupSeeMore(id) {
@@ -158,6 +179,15 @@ var app = new Vue({
             this.pageScrollAni("#product_Swiper");
             this.product_Swiper.slideTo(this.plant.data[id].seeMoreProductId);
             this.ga_btn('index_' + this.plant.data[id].enName + '_more')
+        },
+        
+        // swiper
+        initSwiper: function () {
+            // var swiper= this.product_Swiper.slides[0];
+            var tl = new TimelineMax();
+            tl.set($(this.product_Swiper.slides).find('.sub'), {
+                autoAlpha: 0
+            })
         },
         playSwiperAni: function () {
             if (this.pageChannel != 'product') {
@@ -189,14 +219,17 @@ var app = new Vue({
             this.ga_btn('product_' + (this.product_Swiper.activeIndex + 1))
 
         },
-        initSwiper: function () {
-            // var swiper= this.product_Swiper.slides[0];
-            var tl = new TimelineMax();
-            tl.set($(this.product_Swiper.slides).find('.sub'), {
-                autoAlpha: 0
-            })
-
+        onProBuy: function () {
+            this.ga_btn('product_buy');
+            $('#product_Swiper .buyBtn').addClass('hide');
+            simpleShow($('#product_Swiper .shopBtns'))
+            // $('#product_Swiper .shopBtns').removeClass('hide');
         },
+        onProBuyCloz: function () {
+            $('#product_Swiper .shopBtns').addClass('hide');
+            simpleShow($('#product_Swiper .buyBtn'))
+        },
+
         nextRecipe: function (id) {
             var t = this;
             this.ga_btn('recipe_' + (t.recipeChannel + 1) + '_next')
@@ -284,7 +317,7 @@ var app = new Vue({
             var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
             $body.animate({
                 scrollTop: 0
-            }, 0);
+            }, 300);
         },
         startDemo: function () {
             this.stopDemo();
@@ -504,7 +537,7 @@ var app = new Vue({
         },
         checkForm: function (e) {
             this.ga_btn('quiz_send')
-            
+
 
             this.formErrors = [];
 
@@ -539,7 +572,6 @@ var app = new Vue({
             alert(this.formErrors[0]);
             e.preventDefault();
         },
-        // long
         sendData: function () {
             // 抓頁面token
             this.userData.token = $('#token').val();
@@ -563,16 +595,25 @@ var app = new Vue({
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         },
-        onProBuy: function () {
-            this.wannaBuy = true;
-            this.ga_btn('product_buy')
-        },
         onRecipe: function (id) {
             this.recipeChannel = id;
             this.popChannel = "recipe";
             this.ga_btn('recipe_' + (id + 1))
 
         },
-
+        initScrollEvent: function () {
+            var t = this;
+            $(document).bind('scroll', function () {
+                t.windowScrollTop = $(document).scrollTop()
+                // var backToTopButton = $('.goTop');
+                // if ($(document).scrollTop() > 250) {
+                //     backToTopButton.addClass('isVisible');
+                //     this.isVisible = true;
+                // } else {
+                //     backToTopButton.removeClass('isVisible');
+                //     this.isVisible = false;
+                // }
+            }.bind(this));
+        }
     }
 });

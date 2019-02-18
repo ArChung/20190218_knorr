@@ -31,7 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>       
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Swiper JS Vue -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper@3.1.2/dist/vue-awesome-swiper.js"></script>
@@ -249,7 +249,7 @@
                     <div class="video mt_b">
                         <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="https://www.youtube.com/embed/-Hqro-UhJvE?rel=0&autoplay=0"></iframe>
                     </div>
-                    <swiper ref="product_Swiper" id='product_Swiper' :options="product_SwiperOption" class='mt_b product_Swiper mx_a' @transition-end="playSwiperAni" @transition-start='wannaBuy=false;'>
+                    <swiper ref="product_Swiper" id='product_Swiper' :options="product_SwiperOption" class='mt_b product_Swiper mx_a' @transition-end="playSwiperAni" @transition-start='onProBuyCloz'>
                         <swiper-slide v-for='data in products.products'>
                             <div class="pic">
                                 <img :src="'images/products/p'+ data.className +'1.png'" alt="" class='sub1 sub'>
@@ -267,7 +267,7 @@
                                 </ul>
                                 <div class="mt_m f16" v-for='ps in data.ps'>* {{ ps }}</div>
                             </div>
-                            <transition name="fadeInLeft" mode="out-in">
+                            <!-- <transition name="fadeInLeft" mode="out-in">
                                 <div class="gBtn mx_a mt_s scaleBtn" v-if='!wannaBuy' @click='onProBuy' key='on'>我要購買</div>
                                 <div class="shopBtns mt_m" v-else key='off'>
                                     <div class="cloz scaleBtn" @click='wannaBuy=false'></div>
@@ -275,7 +275,14 @@
                                     <a :href="data.links.yahoo" class="yahoo scaleBtn" target='_blank' @click='ga_btn("product_EC_yahoo")'></a>
                                     <a :href="data.links.momo" class="momo scaleBtn" target='_blank' @click='ga_btn("product_EC_momo")'></a>
                                 </div>
-                            </transition>
+                            </transition> -->
+                            <div class="gBtn mx_a mt_s scaleBtn buyBtn">我要購買</div>
+                            <div class="shopBtns mt_m hide">
+                                <div class="cloz scaleBtn"></div>
+                                <a :href="data.links.pchome" class="pchome scaleBtn" target='_blank' @click='ga_btn("product_EC_pchome")'></a>
+                                <a :href="data.links.yahoo" class="yahoo scaleBtn" target='_blank' @click='ga_btn("product_EC_yahoo")'></a>
+                                <a :href="data.links.momo" class="momo scaleBtn" target='_blank' @click='ga_btn("product_EC_momo")'></a>
+                            </div>
                         </swiper-slide>
                         <div class="swiper-pagination" slot="pagination"></div>
                         <div class="swiper-button-prev" slot="button-prev"></div>
@@ -313,30 +320,47 @@
                     <transition name='fadeInLeft'>
                         <div class="subContainer" v-if='ruleSwitch.s1'>
                             <p>
-                                活動日期: <br>2019/03/15(五)–2019/04/26(五)止
+                                <span class="fwb">活動日期:</span>
+                                <br>2019/03/15(五)–2019/04/26(五)止
                             </p>
                             <p>
-                                玩法：
+                                <span class="fwb">玩法：</span>
                             </p>
                             <ul class="numList">
                                 <li>看完「是誰住在友善農場裡？」的網站相關內容。</li>
                                 <li>並參加問答挑戰，完成挑戰並留下完整資料。</li>
                             </ul>
                             <p>
-                                獎項:
+                                <span class="fwb">獎項:</span>
                             </p>
                             <div class="df fww jcsb priceWrap">
+                                <div class="pro df mt_m">
+                                    <div class="picWrap">
+                                        <img src="images/r_3.png" alt="" class="mx-a">
+                                    </div>
+                                    <div class="txt">
+                                        <div class="fwb">
+                                            全部答對大獎
+                                        </div>
+                                        <div class="mt_s">
+                                            永續竹製餐廚用具：<br>
+                                            HOLA生熟食竹砧板三入組(市價799，共三名)
+                                        </div>
+
+                                    </div>
+                                </div>
+
                                 <div class="pro mt_m df">
                                     <div class="picWrap">
                                         <img src="images/r_2.png" alt="" class="mx-a">
                                     </div>
                                     <div class="txt">
                                         <div class="fwb">
-                                            參加活動即可抽
+                                            參加就能抽
                                         </div>
                                         <div class="mt_s">
                                             永續竹製餐廚用具：<br>
-                                            la-boos日式野餐雙層便當餐具組(三名)
+                                            la-boos日式野餐雙層便當餐具組(市價999，，共三名)
                                         </div>
                                     </div>
                                 </div>
@@ -349,38 +373,36 @@
                                             加碼週週抽獎
                                         </div>
                                         <div class="mt_s">
-                                            康寶2人份熱賣口味濃湯組合一份(18份)
+                                            康寶濃湯自然原味玉米系列三袋(市價178，共18份)
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="pro df mt_m">
-                                    <div class="picWrap">
-                                        <img src="images/r_3.png" alt="" class="mx-a">
-                                    </div>
-                                    <div class="txt">
-                                        <div class="fwb">
-                                            全部答對大獎
-                                        </div>
-                                        <div class="mt_s">
-                                            永續竹製餐廚用具：<br>
-                                            HOLA生熟食竹砧板三入組(三名)
-                                        </div>
 
-                                    </div>
-                                </div>
                             </div>
+                            <div class="f14 mt_m"> *贈品以實體為準。</div>
+                            <p>
+                                <span class="fwb">抽獎辦法：</span>
+                            </p>
+                            <ul class="numList mt_s">
+                                <li>「永續竹製便當餐具組 」、「永續竹製生熟食砧板三入組 」將於04/29中午12:00抽出各三名得獎者，中獎名單將於05/03中午12:00公布於活動網站。</li>
+                                <li>「康寶濃湯自然原味玉米系列三袋」週週抽將於03/25、04/01、04/08、04/15、04/22、04/29 中午12:00各別抽出三名前一週的得獎者，中獎名單將於03/27、04/03、04/10、04/17中午12:00依序公布於活動網站。</li>
+                            </ul>
+                            <p>
+                                獎品將於領獎截止後寄出，也請得獎者耐心等候。贈獎注意事項：未留下完整及正確之聯絡資料之得獎者，主辦單位有權取消獲獎資格且不另抽候補名單。
+
+                            </p>
                         </div>
                     </transition>
 
                     <!-- 抽獎辦法 -->
-                    <div class="gTxt f28 mt_b switcher" :class='{ open : ruleSwitch.s2 }' @click='ruleSwitch.s2=!ruleSwitch.s2'>抽獎辦法</div>
+                    <!-- <div class="gTxt f28 mt_b switcher" :class='{ open : ruleSwitch.s2 }' @click='ruleSwitch.s2=!ruleSwitch.s2'>抽獎辦法</div>
                     <transition name='fadeInLeft'>
                         <div class="subContainer" v-if='ruleSwitch.s2'>
                             <ul class="numList">
                                 <li class='mt_m'>「永續竹製便當餐具組 」、「永續竹製生熟食砧板三入組 」將於04/29中午12:00抽出各三名得獎者，中獎名單將於05/03中午12:00公布於活動網站。</li>
                                 <li class='mt_m'>康寶濃湯自然原味玉米系列二袋」週週抽將於03/25、04/01、04/08、04/15、
-                                    04/22、04/29 中午12:00各別抽出三名前一週的得獎者，中獎名單將於 03/27、04/03、04/10、04/17中午12:00依序公布於活動網站。</li>
+                                    04/22、04/29 中午12:00各別抽出三名前一週的得獎者，中獎名單將於03/27、04/03、04/10、04/17中午12:00依序公布於活動網站。</li>
                                 <li class='mt_m'>「康寶2人份熱賣口味濃湯組合一份」將於04/29中午12:00抽出各三名得獎者，中獎名單將於05/03中午12:00公布於活動網站。</li>
                             </ul>
 
@@ -388,17 +410,46 @@
                                 獎品將於領獎截止後寄出，也請得獎者耐心等候。贈獎注意事項：未留下完整及正確之聯絡資料之得獎者，主辦單位有權取消獲獎資格且不另抽候補名單。
                             </p>
                         </div>
-                    </transition>
+                    </transition> -->
 
                     <!-- 貼文留言活動 -->
                     <div class="gTxt f28 mt_b switcher" :class='{ open : ruleSwitch.s3 }' @click='ruleSwitch.s3=!ruleSwitch.s3'>貼文留言活動</div>
                     <transition name='fadeInLeft'>
                         <div class="subContainer" v-if='ruleSwitch.s3'>
-                            <p>活動日期: <br>2019/4/15(五)–2019/04/26(五)止</p>
+                            <p><span class="fwb">活動日期:</span> <br>2019/4/15(五)–2019/04/26(五)止</p>
 
                             <p>
-                                玩法： <br>參加「康寶 no.1料理點子王」粉絲團「是誰住在友善農場裡？」相關活動貼文，依貼文規定回答問題，將抽出六名答對者，贈送「康寶2人份熱賣口味濃湯組合一份」。
+                                <span class="fwb">玩法：</span>
+                                <br>參加「康寶 no.1料理點子王」粉絲團「是誰住在友善農場裡？」相關活動貼文，依貼文規定回答問題，將抽出六名答對者，贈送「康寶2人份熱賣口味濃湯組合一份」。
                             </p>
+                            <p>
+                                <span class="fwb">獎項:</span>
+                            </p>
+                            <div class="df fww jcsb priceWrap">
+                                <div class="pro df mt_m">
+                                    <div class="picWrap">
+                                        <img src="images/r_4.png" alt="" class="mx-a">
+                                    </div>
+                                    <div class="txt">
+                                        <div class="fwb">
+                                            參加就能抽
+                                        </div>
+                                        <div class="mt_s">
+                                            康寶2人份熱賣口味濃湯組合一份(市價288)
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="f14">
+                                *贈品以實體為準。
+                            </p>
+                            <p>
+                                <span class="fwb">抽獎辦法：</span>
+                            </p>
+                            <ul class="numList mt_s">
+                                <li>「康寶2人份熱賣口味濃湯組合一份」將於04/29中午12:00抽出各三名得獎者，中獎名單將於05/03中午12:00公布於活動網站。</li>
+                            </ul>
                         </div>
                     </transition>
 
@@ -622,13 +673,13 @@
                         <div class="proWrap mt_s">
                             <img :src="'images/'+item" alt="" v-for="(item,index) in plant.data[plant.index].productArr">
                         </div>
-                        <div class="gBtn mt_m mx_a arrBtn" @click='plantsPopupSeeMore(plant.index)'>看更多</div>
+                        <div class="gBtn mt_m mx_a arrBtn" @click='plantsPopupSeeMore(plant.index)'>產品介紹</div>
                     </div>
 
                     <!-- animal pop -->
                     <div class="animalWrap container" v-if='popChannel=="animal"'>
                         <div class="cloz" @click='popChannel=""'></div>
-                        <div class="pic" :class='animal.ani_data[animal.index].className'>
+                        <div class="pic" :class='animal.ani_data[animal.index].popUpClassName'>
                         </div>
                         <div class=" ta_c">
                             <h1 class='gTxt'>{{animal.ani_data[animal.index].name}}</h1>
@@ -653,9 +704,9 @@
                     </div>
 
                     <!-- form pop -->
-                    <transition name='qa'> 
+                    <transition name='qa'>
                         <div class="formPop f18 container" v-if='popChannel=="form"'>
-                            <form >
+                            <form>
                                 <div class="cloz" @click='popChannel=""'></div>
                                 <h1 class='ta_c ls-1 gTxt fwb f32'>資料要填寫正確<br>才能參加抽獎唷
                                 </h1>
@@ -783,7 +834,7 @@
                 <div class="mBtn scaleBtn gaBtn" data-ga='menu_info' @click='onMenu("plant")'>友善農場的秘密</div>
                 <div class="mBtn scaleBtn gaBtn" data-ga='menu_product' @click='onMenu("product")'>美味販賣部</div>
                 <div class="mBtn scaleBtn gaBtn" data-ga='menu_rule' @click='onMenu("rule")'>活動辦法</div>
-                <div class="mBtn scaleBtn gaBtn" data-ga='menu_award' @click='onMenu("winner")'>中獎名單</div>
+                <div class="mBtn scaleBtn gaBtn no-bd" data-ga='menu_award' @click='onMenu("winner")'>中獎名單</div>
                 <div class="socialWrap">
                     <a target='_blank' href="https://www.knorr.com/tw/home.html" class="scaleBtn gaBtn" data-ga='menu_knorr'>
                         <div class="websiteBtn pic"></div>
@@ -796,6 +847,8 @@
                 </div>
             </div>
         </div>
+
+        <div id="topBtn" @click='goTop' :class='{show:showTopBtn}'></div>
     </div>
     <script src="js/vue-data-qa.js"></script>
     <script src="js/vue-data-elements.js"></script>

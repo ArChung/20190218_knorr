@@ -3676,6 +3676,12 @@ h3 {
   background-image: url("../images/eagle2.gif");
 }
 
+.eagle3 {
+  width: 160px;
+  height: 273px;
+  background-image: url("../images/eagle3.gif");
+}
+
 .man1 {
   width: 112px;
   height: 135px;
@@ -5069,7 +5075,7 @@ h3 {
 @media screen and (min-width: 769px) {
   #menu .inner {
     background-color: white;
-    height: 80px;
+    height: 55px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -5087,10 +5093,14 @@ h3 {
 }
 @media screen and (min-width: 769px) {
   #menu .mBtn {
-    padding: 0 15px;
+    padding: 0 20px;
     border-bottom: 0;
     display: inline-block;
     vertical-align: text-top;
+    border-right: 1px solid #3F833C;
+  }
+  #menu .mBtn.no-bd {
+    border-right: none;
   }
   #menu .mBtn:hover {
     left: 0;
@@ -5183,6 +5193,24 @@ h3 {
   width: 20px;
   height: 20px;
   background-image: url("../images/icon_reduce.png");
+}
+
+#topBtn {
+  width: 59px;
+  height: 59px;
+  background-image: url("../images/topBtn.png");
+  position: fixed;
+  right: -70px;
+  bottom: 20px;
+  z-index: 20;
+  cursor: pointer;
+  -moz-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#topBtn.show {
+  right: 20px;
 }
 
 #product {

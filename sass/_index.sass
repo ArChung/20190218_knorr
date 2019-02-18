@@ -498,7 +498,7 @@
 	.inner
 		+pc 
 			background-color: white
-			height: 80px
+			height: 55px
 			// line-height: 80px
 			display: flex
 			justify-content: flex-end
@@ -509,12 +509,15 @@
 		+phone
 			padding: 15px
 			border-bottom: 1px solid rgba(51, 132, 57, 0.41)
-			 
 		+pc
-			padding: 0 15px
+			padding: 0 20px
 			border-bottom: 0
 			display: inline-block
 			vertical-align: text-top
+			border-right: 1px solid #3F833C
+			&.no-bd
+				border-right: none
+				
 			&:hover
 				left: 0
 	.socialWrap
@@ -601,7 +604,16 @@
 			&.open
 				&:after
 					+bg('icon_reduce.png')
-
+#topBtn
+	+bg('topBtn.png')
+	position: fixed
+	right: -70px
+	bottom: 20px
+	z-index: 20
+	cursor: pointer
+	+dTime
+	&.show
+		right: 20px
 #product
 	+bgi('bg.jpg')
 	.container
