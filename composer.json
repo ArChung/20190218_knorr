@@ -1,0 +1,13 @@
+{
+    "name": "cklong2k/knorr",
+    "authors": [
+        {
+            "name": "Ming-Long Chang",
+            "email": "cklong2@bomdic.com"
+        }
+    ],
+    "require": {
+        "gilbitron/easycsrf": "^1.0",
+        "paragonie/easydb": "^2.8"
+    }
+}
