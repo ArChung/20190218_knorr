@@ -1,0 +1,724 @@
+
+#logo
+	+bg('logo.png')
+	position: fixed
+	top: 0
+	left: 15px
+	z-index: 999
+#menuBtn
+	+bg('menu.png')
+	position: fixed
+	top: 23px
+	right: 25px
+	cursor: pointer
+	z-index: 10
+#mainPage
+	position: relative
+
+.downArr
+	+bg('arr.png')
+	position: relative
+	margin: 0 auto
+	margin-top: 50px
+	+animation(arr 1s ease-in-out infinite)
+	
+		
+#mainContainer
+	overflow-x: hidden
+	position: absolute
+	top: 0vh
+	left: 0
+	width: 100%
+#index
+	padding-top: 100px
+	position: relative
+	.titleWrap
+		position: relative
+		z-index: 5
+		.birds
+			> *
+				position: absolute
+				left: 50%
+				top: 50%
+			.e1
+				+transform(scaleX(.2) scaleY(.2) rotate(-12.1deg))
+				margin-left: 290px
+				margin-top: -340px
+				+phone 
+					margin-left: 140px
+					margin-top: -410px
+			.e2	
+				+transform(scaleX(-.15) scaleY(.15) rotate(-19deg))
+				margin-left: -490px
+				margin-top: -100px
+				+phone 
+					margin-left: -310px
+		
+		.title
+			position: relative
+			width: 501px
+			height: 300px
+			margin: 0 auto 25px
+
+			> *
+				position: absolute
+				top: 0
+				left: 0
+				// +filter(drop-shadow(2px 3px 1px rgba(0, 88, 134, 0.5)))
+			@for $i from 1 through 11
+				.t#{$i}
+					+bg("tt#{$i}.png")	
+	.clouds
+		position: absolute
+		top: 0
+		left: 50%
+		+phone
+			+scale(.6)
+		> *
+			position: absolute
+			left: 50%
+
+		.c1
+			+bg('c1.png')
+			top: 124px 
+			margin-left: -640px
+			+animation(c1 18s ease-in-out infinite)
+			
+		.c2
+			+bg('c2.png')
+			top: 226px 
+			margin-left: -710px
+			+animation(c2 20s 5s ease-in-out infinite)
+			
+		.c3
+			+bg('c3.png')
+			top: 91px 
+			margin-left: -520px
+			+animation(c2 16s ease-in-out infinite)
+			
+#intro
+	width: 100%
+	height: 100vh
+	display: flex
+	justify-content: center
+	align-items: center
+	.txtWrap
+		.txt
+			// position: relative
+			+fs
+			text-align: center
+			line-height: 52px
+			letter-spacing: 0.1em
+	.clouds
+		position: relative
+		> *
+			position: absolute
+			left: 50%
+
+		.c1
+			+bg('c1.png')
+			bottom: 0px
+			margin-left: -800px
+			+animation(c1 18s ease-in-out infinite)
+		.c2
+			+bg('c2.png')
+			bottom: -200px
+			margin-left: -700px
+			+animation(c1 22s ease-in-out infinite)
+			
+		.c3
+			+bg('c3.png')
+			bottom: 250px
+			margin-left: -460px
+			+animation(c2 16s ease-in-out infinite)
+			
+#fieldContainer
+	margin-top: 86px
+	padding-bottom: 80px
+	width: 100%
+	+bgi('bg.jpg')
+	background-size: 100% auto
+	position: relative
+	overflow: visible
+	
+	&:before
+		content: ''
+		width: 100%
+		height: 86px
+		position: absolute
+		top: -86px
+		left: 0 
+		+bgi('bg01.png')
+		background-position: 50% 50%
+		+phone
+			display: none
+
+	.subTitle
+		position: relative
+		.animal
+			> *
+				left: 50%
+				top: 0
+				position: absolute
+			.eagle2
+				margin-left: -540px
+				margin-top: -41px
+			.man2
+				margin-left: 321px
+				margin-top: 47px
+				+phone 
+					margin-left: 144px
+			.bird
+				margin-left: -359px
+				margin-top: 159px
+				+phone 
+					margin-left: -600px
+					margin-top: 279px
+		+bgi('trees.png')
+		background-position: center bottom
+		background-repeat: no-repeat
+
+		padding: 0 70px
+		h1 
+			margin-top: -7px
+		h3 
+			+phone 
+				font-size: 16px
+				// text-align: left 
+	.field
+		+bg('field_m.png')
+		position: relative
+		left: 50%
+		margin-left: -890px
+		top: -56px
+		> *
+			position: absolute
+		+phone 
+			left: 0
+			margin-left: 0
+			width: 100%
+			height: auto
+			top: 0
+			+bgi('m_feild.jpg')
+			+coverBg
+			+aspect-ratio(640,2818)
+			img 
+				position: relative
+				width: 100%
+		// 	+bgi('m_feild.jpg')
+		// 	+coverBg
+		// 	+aspect-ratio(640,3818)
+		// 	width: 100%
+		// 	left: 0
+		// 	margin-left: 0
+		// 	top: 0
+		.tagBtn
+			cursor: pointer
+			+transition(all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275))
+			.tag
+				+bg('tag.png')
+				padding: 9px 0px 0 20px
+				font-size: 18px
+				color: #fff
+				font-family: "微軟正黑體","Microsoft JhengHei", "STHeiti Light", "STHeiti", Arial, sans-serif
+				font-weight: bold
+				position: absolute
+				left: 50%
+				margin-left: -62px
+				top: 30px 
+				+opacity(0)
+				+transition(all .3s .1s cubic-bezier(0.175, 0.885, 0.32, 1.275))
+				+scale(0.9)
+			&:hover
+				+scale(1.2)
+				.tag
+					top: -30px
+					+opacity(1)
+			&.active
+				+scale(1.2)
+				.tag
+					top: -30px
+					+opacity(1)
+		.bird
+			left: 319px + 170px
+			top: 815px - 600px
+			+phoneFiled(41,133)
+		.butterfly
+			left: 245px + 170px
+			top: 1020px - 600px
+			+phoneFiled(340,407)
+			
+			&.bf2
+				left: 809px + 170px
+				top: 886px - 600px
+				+phoneFiled(336,1446)
+				
+			&.bf3
+				left: 1149px + 170px
+				top: 1597px - 600px
+				+phoneFiled(366,505)
+			
+			&.bf4
+				left: 428px
+				top: 1023px
+				+phoneFiled(152,922)
+				
+			&.bf5
+				left: 1509px
+				top: 546px
+				+phoneFiled(20,1261)
+				
+			&.bf6
+				left: 799px
+				top: 747px
+				+phoneFiled(94,1713)
+				
+
+		.frog
+			left: 254px + 170px
+			top: 1236px - 600px
+			+phoneFiled(16,415)
+			
+		.rabbit
+			left: 1075px + 170px
+			top: 456px
+			+phoneFiled(273,806)
+
+		// 玉米
+		.plat1 
+			left: 379px + 170px
+			top: 932px - 600px	
+			+phoneFiled(94,228)
+		
+		// 南瓜
+		.plat2
+			left: 861px + 170px
+			top: 955px - 600px
+			+phoneFiled(131,740)
+		
+		// 香菜
+		.plat3
+			left: 880px + 170px
+			top: 1279px - 600px
+			+phoneFiled(172,1050)
+			
+		// 雪裡紅
+		.plat4
+			left: 285px + 170px
+			top: 1658px - 600px
+			+phoneFiled(83,1250)
+			
+		// 綠花椰
+		.plat5
+			left: 357px + 170px
+			top: 1335px - 600px
+			+phoneFiled(136,504)
+			
+			
+		// .plat6
+		// 	left: 843px + 170px
+		// 	top: 1639px - 600px
+		.lightBug
+			left: 540px + 170px
+			top: 1040px - 600px
+			+phoneFiled(232,313)
+			
+			
+		.lizard
+			left: 479px + 170px
+			top: 1815px - 600px
+			+phoneFiled(60,1430)
+			
+		.bigBird
+			left: 714px + 170px
+			top: 1698px - 600px
+			+phoneFiled(16,1000)
+			
+		.mouse
+			left: 1013px + 170px
+			top: 1396px - 600px
+			+phoneFiled(266,1696)
+			
+		.eagle
+			left: 1236px
+			top: 0px
+			+rotate(-22.1deg)
+			+phoneFiled(236,1131)
+			+phone 
+				+transform(scale(0.8) rotate(-22.1deg))
+		.eagle2
+			left: 286px
+			top: 492px
+			+phoneFiled(32,1583)
+
+		.man1
+			left: 1101px + 170px
+			top: 773px - 600px
+			+phoneFiled(566,107)
+			
+		.man2
+			left: 1087px + 170px
+			top: 1265px - 600px 
+			+phoneFiled(300,1016)
+			
+		.man3
+			left: 615px + 170px
+			top: 1480px - 600px 
+			+phoneFiled(20,690)
+			
+		.man4
+			left: 1208px
+			top: 1140px
+			+phoneFiled(298,1580)
+			
+
+
+#infoContainer
+	position: relative
+	.bg
+		+bgi('field2.png')
+		width: 100%
+		left: 0
+		bottom: 0
+		+aspect-ratio(1440,454)
+		+coverBg
+		position: absolute
+	.innerContainer
+		max-width: 620px
+		margin: 0 auto
+		padding: 130px 25px 250px
+		position: relative
+		z-index: 5
+
+		
+
+
+		.foodWrap
+			.foods
+				display: flex
+				justify-content: space-around
+				.food
+					width: 200px
+					.pic
+						width: 100px
+						margin: 0 auto
+						img 
+							display: block
+							margin: 0 auto
+							
+					.txt
+						margin-top: 20px
+						text-align: center
+			.subtxt
+				display: flex
+				.icon
+					+bg('icon.png')
+					margin-right: 28px
+					flex-shrink: 0
+				margin-top: 50px
+				// padding: 0 70px
+				// min-width: 70px
+				
+				// padding-right: 160px
+				// background-position: 86% center
+				// background-repeat: no-repeat
+		.productWrap
+			+bg('product.png')
+			display: flex
+			flex-wrap: wrap
+			justify-content: space-between
+			
+			.gBBtn
+				margin-bottom: 46px
+				position: relative
+				top: -50px
+				&:nth-child(2n)
+					margin-left: 50%
+					top: 0px
+				
+.elementWrap
+	.pic
+		img 
+			display: block
+			margin: 0 auto
+			max-width: 150px
+			max-height: 150px
+.qAWrap
+	.styled-checkbox + .txt
+		font-size: 24px
+
+.formPop
+	.checkBoxWrap
+		.txt
+			min-width: 70px
+	label 
+		display: inline-block
+		min-width: 100px
+		margin-right: 8px
+		margin-bottom: 6px
+
+
+#footer
+	display: flex
+	justify-content: center
+	align-items: center
+	height: 85px
+	background-color: #4C9703
+	color: #fff					
+
+#menu
+	+phone 
+		height: 100%
+		
+	position: fixed
+	width: 100%
+	top: 0
+	left: 0
+	z-index: 20
+	+phone
+		+bgi('sky.jpg')
+		display: flex
+		justify-content: center
+		align-items: center
+	.cloz
+		+bg('cloz.png')
+		cursor: pointer
+		position: absolute
+		top: 25px
+		right: 25px
+		// +phone 
+		// 	right: 30px
+		+dTime(.2s)
+		&:hover
+			+rotate(90deg)	
+		+pc 
+			display: none
+	a:hover 
+		text-decoration: none
+	.inner
+		+pc 
+			background-color: white
+			height: 80px
+			// line-height: 80px
+			display: flex
+			justify-content: flex-end
+			align-items: center
+			font-size: 18px
+	.mBtn
+		cursor: pointer
+		+phone
+			padding: 15px
+			border-bottom: 1px solid rgba(51, 132, 57, 0.41)
+			 
+		+pc
+			padding: 0 15px
+			border-bottom: 0
+			display: inline-block
+			vertical-align: text-top
+			&:hover
+				left: 0
+	.socialWrap
+		display: flex
+			
+		+phone 
+			margin-top: 30px
+			justify-content: space-around 
+		> a 
+			+pc
+				display: flex
+				align-items: center
+				margin-right: 20px
+				.txt
+					text-align: center
+				
+		.websiteBtn
+			+bg('web.png')
+			
+		.fbBtn	
+			+bg('fb.png')
+		.pic 
+			+scale(.8)
+			flex-shrink: 0
+			+phone
+				margin: 0 auto
+	// 	.txt
+	// 		+phone
+	// 			text-align: center 
+	// 		+pc 
+	// 			display: inline-block
+	// 			vertical-align: text-top
+
+	// 	.websiteBtn
+	// 		+bg('web.png')
+	// 		margin: 0 auto
+	// 	.fbBtn	
+	// 		+bg('fb.png')
+	// 		margin: 0 auto
+	// 	.pic
+	// 		+pc 
+	// 			display: inline-block
+	// 			vertical-align: text-top
+	// 	+phone
+	// 		display: flex
+	// 		justify-content: space-around
+	// 		margin-top: 30px
+		
+	// 	+pc 
+	// 		display: inline-block
+	// 		vertical-align: text-top
+	// 		> * 
+	// 			display: inline-block
+
+#rule
+	+bgi('bg.jpg')
+	.container
+		padding: 100px 30px
+		margin: 0 auto
+		max-width: 900px
+		p 
+			margin-top: 30px
+		.priceWrap
+			.pro
+				width: 45%
+				+phone
+					width: 100%
+			.picWrap
+				margin-right: 15px
+				width: 165px
+				flex-shrink: 0
+				img 
+					display: block
+					margin: 0 auto
+		.switcher
+			position: relative
+			cursor: pointer
+			&:after
+				content: ''
+				+bg('icon_add.png')
+				display: inline-block
+				vertical-align: baseline
+				margin-left: 8px
+			&.open
+				&:after
+					+bg('icon_reduce.png')
+
+#product
+	+bgi('bg.jpg')
+	.container
+		padding: 100px 30px
+		margin: 0 auto
+		max-width: 900px
+		
+		.product_Swiper
+			max-width: 600px
+			padding-bottom: 50px
+			.swiper-slide
+				.pic 
+					width: 550px
+					height: 442px
+					margin: 0 auto
+					> img 
+						display: block
+						position: absolute
+				.txtWrap
+					width: 300px
+					margin: 0 auto
+				ul 
+					// max-width: 300px
+					padding-left: 25px
+					list-style-type: disc
+					+phone
+						font-size: 20px
+					
+				.pro_name
+					margin-top: -60px
+		.shopBtns
+			background-color: white
+			padding: 5px 5px
+			position: relative
+			display: flex
+			flex-wrap: wrap
+			justify-content: center
+			padding-left: 50px
+			.cloz 
+				+bg('btn_colse.png')
+				
+				position: absolute
+				top: 10px
+				left: 15px
+				+phone
+				
+			.pchome
+				+bg('pchome.png')
+				display: block
+				+phone 
+					margin: 5px auto
+			.yahoo
+				+bg('yahoo.png')
+				display: block
+				+phone 
+					margin: 5px auto
+			.momo
+				+bg('momo.png')
+				display: block
+				+phone 
+					margin: 5px auto
+					padding: 5px 0
+			+phone
+				display: block
+				padding: 5px 0
+				
+		.productTable
+			max-width: 800px
+			.pro 
+				width: 130px
+				padding-bottom: 25px
+				img 
+					display: block
+					margin: 0 auto
+					max-width: 90px
+		
+		.recipeTable
+			max-width: 800px
+			.recipe
+				padding-bottom: 25px
+				.pic
+					position: relative
+					&.spring:after
+						content: ''
+						+bg('products/icon_spring.png')
+						position: absolute
+						top: -10px
+						left: -10px
+
+					&.summer:after
+						content: ''
+						+bg('products/icon_summer.png')
+						position: absolute
+						top: -10px
+						left: -10px
+
+					&.fall:after 
+						content: ''
+						+bg('products/icon_fall.png')
+						position: absolute
+						top: -10px
+						left: -10px
+
+					&.winter:after
+						content: ''
+						+bg('products/icon_winter.png')
+						position: absolute
+						top: -10px
+						left: -10px
+
+
+			@for $i from 1 through 11
+				.recipe_#{$i}
+					width: 165px
+					height: 120px
+					+containBg
+					+bgi("products/f#{$i}.png")	 
+					+phone
+						width: 165px * 1.4
+						height: 120px * 1.4

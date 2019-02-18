@@ -1,0 +1,593 @@
+
+@import url('https://fonts.googleapis.com/css?family=Miltonian|Noto+Serif+TC')
+[v-cloak]
+	display: none
+input[type="submit"]
+	border: 0
+	background: none
+	border: 0
+	/* cursor: default */
+	+bg('gBtn_m.png')
+	// font: inherit
+	// line-height: normal
+	// overflow: visible
+	padding: 0
+	-webkit-appearance: button /* for input */
+	-webkit-user-select: none /* for button */
+	-moz-user-select: none
+	-ms-user-select: none
+.miltonianTxt
+	font-family: 'Miltonian', cursive
+*
+	box-sizing: border-box
+a:focus
+	outline: none
+html,body 
+	width: 100%
+	height: 100%
+	color: #63412b
+body
+	font-family: 'Noto Serif TC'
+	+bgi('sky.jpg')
+	+coverBg
+	position: relative
+
+=fullDiv
+	width: 100%
+	height: 100%
+
+.video 
+	+aspect-ratio(560,315)
+	width: 100%
+	position: relative
+	iframe
+		position: absolute
+		width: 100%
+		height: 100%
+		top: 0
+		left: 0
+=fs 
+	font-size: 24px
+.tdul
+	text-decoration: underline
+.fs 
+	+fs
+.numList
+	list-style-type: decimal
+	padding-left: 25px 
+h1 
+	font-size: 48px
+	// color: #281402
+h2 
+	font-size: 24px
+h3 
+	font-size: 18px
+.f28 
+	font-size: 28px
+.f32
+	font-size: 32px
+.f36
+	font-size: 36px
+.f66
+	font-size: 66px
+.f18
+	font-size: 18px
+.f16
+	font-size: 16px
+.f14
+	font-size: 14px
+.italicTxt
+	font-style: italic	
+
+.icon_knorr
+	display: inline-block
+	+bg('products/icon.png')
+	vertical-align: sub
+	margin-left: 4px
+
++keyframes('light')
+	0%
+		+opacity(0.7)
+	50%
+		+opacity(1)
+	100%
+		+opacity(0.7)
+
++keyframes('c1')
+	0%
+		+transform(translateX(0px))
+	50%
+		+transform(translateX(-100px))
+	100%
+		+transform(translateX(0px))
+
++keyframes('c2')
+	0%
+		+transform(translateX(0px))
+	50%
+		+transform(translateX(80px))
+	100%
+		+transform(translateX(0px))
+
++keyframes('arr')
+	0%
+		+transform(translateY(0px))
+	50%
+		+transform(translateY(-15px))
+	100%
+		+transform(translateY(0px))
+
++keyframes('aniBtn')
+	0%
+		+scale(1)
+	50%
+		+scale(1.05)
+	100%
+		+scale(1)
+.aniBtn
+	+animation(aniBtn .6s ease-in-out infinite)
+=phoneFiled($x,$y)
+	+phone
+		left: $x / 414 * 100%  
+		top: $y / 1823 * 100%
+
+.icon_foods
+	+bg('foods.png')
+	display: inline-block
+	vertical-align: text-top
+	margin-top: -13px 
+	margin-right: 8px
+
+.icon_recipe
+	+bg('recipe.png')
+	display: inline-block
+	vertical-align: text-top
+	margin-top: -13px 
+	margin-right: 8px
+
+	
+.darkredTxt
+	color: #784646
+.gTxt
+	color: #338439
+.dgTxt
+	color: #012604
+.underline
+	text-decoration: underline
+.ls-1
+	letter-spacing: 0.1em
+.scaleBtn
+	cursor: pointer
+	+dTime(.3s)
+	&:hover
+		+scale(1.05)
+.fwb
+	font-weight: bold
+.dib
+	display: inline-block
+.db
+	display: block
+.df 
+	display: flex
+	&.jcc
+		justify-content: center
+	&.fww
+		flex-wrap: wrap
+	&.aic
+		align-items: center
+	&.jcsa
+		justify-content: space-around
+	&.jcsb
+		justify-content: space-between
+
+.bird
+	+bg('bird.gif')
+.butterfly
+	+bg('butterfly.gif')
+	&.bf2
+	&.bf3
+		+transform(scaleX(-1))
+	&.leftB
+		+transform(scaleX(-1))
+		
+.frog
+	+bg('frog.gif')
+.rabbit
+	+bg('rabbit.gif')
+.plat1
+	+bg("plat1.png")
+.plat2
+	+bg("plat2.png")
+.plat3
+	+bg("plat3.png")
+.plat4
+	+bg("plat4.png")
+.plat5
+	+bg("plat5.png")
+.plat6
+	+bg("plat6.png")
+.lightBug
+	+bg('light.gif')
+	&:after
+		content: '' 
+		position: absolute
+		+bg('light.png')
+		top: 40px
+		left: 30px
+		+animation(light .8s linear infinite)
+.lizard
+	+bg('lizard.gif')
+.bigBird
+	+bg('bigBird.gif')
+.mouse
+	+bg('mouse.gif')
+.eagle
+	+bg('eagle.gif')
+	+rotate(-22.1deg)
+	
+.eagle2
+	+bg('eagle2.gif')
+.man1
+	+bg('man1.gif')
+.man2
+	+bg('man2.gif')
+.man3
+	+bg('man3.gif')
+.man4
+	+bg('man4.gif')
+	
+.mx_a
+	margin-left: auto
+	margin-right: auto
+.mt_bb
+	margin-top: 130px
+.mt_b
+	margin-top: 75px
+.mt_m
+	margin-top: 30px
+.mt_s
+	margin-top: 15px
+.py-3
+	padding-top: 100px
+	padding-bottom: 100px
+.gBBtn
+	+bg('gBtn_b.png')
+	text-align: center
+	display: flex
+	justify-content: center
+	align-items: center
+	cursor: pointer
+	+scale(1.3)
+	
+	+dTime 
+	&:hover
+		+scale(1.35)
+	.pic
+		@for $i from 1 through 11
+			&.p#{$i}
+				+bg("q#{$i}.png")
+	.txt
+		color: #fff
+		font-size: 12px
+		margin-top: 2px
+	.glass
+		margin-top: 3px
+		+bg('qq.png')
+	+phone
+		+scale(1.5)
+		&:hover
+			+scale(1.55)
+			
+		
+.gBtn
+	+bg('gBtn_m.png')
+	text-decoration: none
+	font-size: 18px
+	display: flex
+	justify-content: center
+	padding-top: 33px
+	letter-spacing: 0.1em
+	color: #fff
+	cursor: pointer
+	+dTime
+	
+			
+	&.disable
+		pointer-events: none
+		+opacity(0.5)
+	&.arrBtn:after
+		content: ''
+		+bg('btnArr.png')
+		display: block
+		margin-left: 8px
+		+dTime
+		position: relative
+		left: 0
+		top: 5px
+		
+
+	&:hover
+		+scale(1.1)
+		text-decoration: none
+		color: white
+		&.arrBtn:after
+			left: 10px
+		
+	+phone
+		+scale(1.2)
+		&:hover
+			+scale(1.3)
+	
+.numBtns
+	display: flex
+	justify-content: center
+	.btn
+		+bg('gBtn_s.png')
+		margin: 0 10px
+		color: white
+		display: flex
+		align-items: center
+		justify-content: center
+		font-size: 18px
+		font-weight: bold
+		+dTime
+		+opacity(0.7)
+		cursor: pointer
+		&.active
+			+opacity(1)
+		&:hover
+			+opacity(1)
+
+.swiper-button-prev
+	+bg('btn_left.png')
+	background-size: contain
+.swiper-button-next
+	+bg('btn_right.png')
+	background-size: contain
+
+.swiper-pagination-bullet
+	background-color: #297526
+	+opacity(.5)	
+.swiper-pagination-bullet-active
+	+opacity(1)	
+	
+.popUp
+	position: fixed
+	width: 100%
+	height: 100%
+	overflow-y: scroll
+	// background-color: rgba(#425567,0.8)
+	z-index: 22
+	top: 0
+	left: 0
+	// padding-top: 150px
+	// padding-bottom: 100px
+	color: #012604
+	+phone 
+		h3 
+			font-size: 22px
+		.f16	
+			font-size: 22px
+		.f12
+			font-size: 16px
+	
+	.bg	
+		width: 100%
+		height: 100%
+		position: absolute
+		top: 0
+		left: 0
+		background-color: rgba(#425567,0.8)
+	.innerPopup
+		padding: 200px 0
+		position: relative
+		min-height: 100%
+
+	.container
+		width: 540px
+		background-size: 100% 100%
+		
+		+pc
+			width: 635px
+			background-size: 100% 100%
+			padding: 0 150px
+			// margin-left: -318px
+		+bgi('popBg.png')
+		// position: relative
+		padding: 0 50px
+		// margin: 0 auto
+		position: relative
+		left: 0px
+		top: 0px
+		margin: 0 auto
+		// position: absolute
+		// left: 50%
+		// top: 200px
+		// margin-left: -218px
+		// margin-bottom: 100px
+		&:before
+			content: ''
+			position: absolute
+			+bg('popTop.png')
+			top: -87px
+			left: 0
+			background-size: 100% 100%
+			width: 540px
+			+pc 
+				width: 635px
+				
+		&:after
+			content: ''
+			position: absolute
+			+bg('popBB.png')
+			bottom: -70px
+			left: 0
+			background-size: 100% 100%
+			width: 540px
+			+pc 
+				width: 635px
+		.cloz
+			+bg('cloz.png')
+			cursor: pointer
+			position: absolute
+			top: -60px
+			right: 50px
+			+phone 
+				right: 30px
+			+dTime(.2s)
+			&:hover
+				+rotate(90deg)	
+	.pic 
+		position: relative
+		margin-left: auto
+		margin-right: auto
+	.picWrap
+		img 
+			width: 100%
+			display: block
+	
+	.proWrap
+		display: flex
+		flex-wrap: wrap
+		justify-content: space-around
+		img 
+			display: block
+			width: 100px
+			height: 123px
+
+	.qAWrap
+		
+		.inputWrap
+			label 
+				display: block
+			label:not(last-child)
+				margin-top: 15px
+
+
+	hr 
+		height: 1px
+		color: rgba(51, 132, 57, 0.41)
+		background-color: rgba(51, 132, 57, 0.41)
+		border: none
+
+.styled-checkbox
+	position: absolute
+	width: 0
+	height: 0 
+	+opacity(0)
+	
+
+	& + .txt
+		padding-left: 58px
+		position: relative
+		&:before
+			content: ''
+			+bg('input.png')
+			position: absolute
+			top: 0
+			left: 0
+			+dTime(.2s) 
+
+	&:checked
+		+ .txt:before
+			+bg('input_checked.png')
+
+
+
+	&.small + .txt
+		padding-left: 33px
+		&:before
+			+bg('input_s.png')
+
+	&.small:checked + .txt:before
+		+bg('input_checked_s.png')
+
+
+.styled-inputWrap
+	display: flex
+	border-bottom: 1px solid rgba(51, 132, 57, 0.5)
+	
+	.txt
+		min-width: 80px
+	input
+		border: 0
+		background-color: transparent
+		&:focus
+			outline: 0
+// animation
+
+
+.popUp-enter-active, 
+	transition: opacity .5s
+	.container
+		position: relative
+		+transition(all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275))
+.popUp-leave-active 
+	transition: opacity .5s
+	.container
+		+transition(all .5s)
+		
+.popUp-enter
+	opacity: 0
+	.container
+		+scale(.75)
+
+.popUp-leave-to
+	opacity: 0
+	.container
+		+scale(.9)
+
+
+.popUp
+	.qa-enter-active
+		+transition(all .6s)
+		
+	// .qa-leave-active 
+	// 	+transition(all .6s)
+			
+	.qa-enter
+		// left: 100%
+		// margin-left: 0
+		+opacity(.8)
+		+scale(.8)
+			
+	// .qa-leave-to
+	// 	left: 0
+	// 	margin-left: -500px
+	
+	.pop-enter-active
+		+transition(all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275))
+		
+	.pop-leave-active 
+		// +transition(all 0s)
+		// position: absolute
+		// left: 50%
+		// +transform(translateX(-50%))
+			
+	.pop-enter
+		// left: 100%
+		// margin-left: 0
+		+scale(0.85)
+		+opacity(0)
+			
+	.pop-leave-to
+		+opacity(0)
+		// left: -1000px
+		// margin-left: -1000px
+		// margin-top: 200px
+		// +rotate(-20deg)
+		// +transform(translate(-100px,-100px))
+		// +opacity(0)
+		// +scale(1.2)
+		
+		// top: 20px
+
+
+.fadeInLeft-enter-active,.fadeInLeft-leave-active 
+	+transition(all .25s)
+	position: relative
+	left: 0
+		
+.fadeInLeft-enter,.fadeInLeft-leave-to
+	left: -20px
+	+opacity(0)
