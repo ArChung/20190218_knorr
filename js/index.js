@@ -26,6 +26,8 @@ var app = new Vue({
             child: [],
             agreeToSendMeInfo: true,
             agreeRule: true,
+            score: 0,
+            token: '',
         },
         ruleSwitch: {
             s1: true, //問答挑戰
@@ -92,7 +94,7 @@ var app = new Vue({
         });
 
         // console.log(this.getUrlParameter("page"));
-        if(this.getUrlParameter("page")=='rule'){
+        if (this.getUrlParameter("page") == 'rule') {
             console.log(this.introAni);
             if (this.introAni) {
                 this.introAni.progress(1, false);
@@ -126,17 +128,17 @@ var app = new Vue({
             this.ga_page(val);
         },
     },
-    methods: { 
-        getUrlParameter: function(sParam) {
+    methods: {
+        getUrlParameter: function (sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                 sURLVariables = sPageURL.split('&'),
                 sParameterName,
                 i;
-            
-    
+
+
             for (i = 0; i < sURLVariables.length; i++) {
                 sParameterName = sURLVariables[i].split('=');
-    
+
                 if (sParameterName[0] === sParam) {
                     return sParameterName[1] === undefined ? true : sParameterName[1];
                 }
@@ -158,7 +160,7 @@ var app = new Vue({
             this.ga_btn('index_' + this.plant.data[id].enName + '_more')
         },
         playSwiperAni: function () {
-            if(this.pageChannel!='product'){
+            if (this.pageChannel != 'product') {
                 return;
             }
             var swiper = this.product_Swiper.slides[this.product_Swiper.activeIndex];
@@ -184,7 +186,7 @@ var app = new Vue({
                     ease: Back.easeOut
                 }, .1)
 
-            this.ga_btn('product_'+(this.product_Swiper.activeIndex+1))
+            this.ga_btn('product_' + (this.product_Swiper.activeIndex + 1))
 
         },
         initSwiper: function () {
@@ -197,13 +199,13 @@ var app = new Vue({
         },
         nextRecipe: function (id) {
             var t = this;
-            this.ga_btn('recipe_'+ (t.recipeChannel+1) +'_next')
+            this.ga_btn('recipe_' + (t.recipeChannel + 1) + '_next')
             t.popChannel = 'temp';
             t.recipeChannel = (t.recipeChannel >= 7) ? 0 : t.recipeChannel + 1
             setTimeout(function () {
                 t.popChannel = 'recipe';
             }, 100);
-            this.ga_btn('recipe_'+ (t.recipeChannel+1))
+            this.ga_btn('recipe_' + (t.recipeChannel + 1))
         },
         isPhone: function () {
             testExp = new RegExp('Android|webOS|iPhone|iPad|' +
@@ -300,17 +302,17 @@ var app = new Vue({
         },
         reQA: function () {
             this.qa.state = 'question';
-            this.qa.score = 0;
+            this.userData.score = 0;
             this.qa.userAnswerNow = -1;
             this.qa.index = 0;
             this.popChannel = 'qa';
             this.ga_page('P2_quiz')
         },
         nextQuestion: function () {
-            this.ga_btn('quiz_q' + (this.qa.index + 1)+'_next');
-            
+            this.ga_btn('quiz_q' + (this.qa.index + 1) + '_next');
+
             if (this.qa.answer[this.qa.index] == this.qa.userAnswerNow) {
-                this.qa.score += 1;
+                this.userData.score += 1;
             }
 
             if (this.qa.index < 4) {
@@ -323,16 +325,16 @@ var app = new Vue({
 
         },
         onAnswer: function () {
-            this.qa.state="answer";
+            this.qa.state = "answer";
             this.ga_btn('quiz_q' + (this.qa.index + 1));
-            
+
         },
         retry: function () {
             this.reQA();
             this.ga_btn('quiz_again');
         },
         fillForm: function () {
-            this.popChannel="form"
+            this.popChannel = "form"
             this.ga_btn('quiz_fillin');
         },
         openAnimal: function (id) {
@@ -350,8 +352,8 @@ var app = new Vue({
         openElement: function (id) {
             this.elements.index = id;
             this.popChannel = 'element';
-            this.ga_btn('uslp_' + (id+1))
-            
+            this.ga_btn('uslp_' + (id + 1))
+
         },
         lockScroll: function () {
 
@@ -498,10 +500,11 @@ var app = new Vue({
 
         },
         onlyNum: function (e) {
-            e.target.value = e.target.value.replace(/[^0-9.]/g,'');
+            e.target.value = e.target.value.replace(/[^0-9.]/g, '');
         },
         checkForm: function (e) {
             this.ga_btn('quiz_send')
+            
 
             this.formErrors = [];
 
@@ -526,7 +529,8 @@ var app = new Vue({
             }
 
             if (this.formErrors.length == 0) {
-                alert('感謝您的參與!')
+                alert('感謝您的參與!');
+                this.sendData();
                 this.popChannel = '';
                 this.pageScrollAni('#infoContainer')
                 return;
@@ -535,19 +539,39 @@ var app = new Vue({
             alert(this.formErrors[0]);
             e.preventDefault();
         },
+        // long
+        sendData: function () {
+            // 抓頁面token
+            this.userData.token = $('#token').val();
+            // console.log 全部資料
+            console.log(this.userData);
+            // api url
+            var apiUrl = './store.php';
+
+
+            axios.post(apiUrl, this.userData)
+                // 成功
+                .then(function (response) {
+                    console.log(response);
+                })
+                // 失敗
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         validEmail: function (email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         },
         onProBuy: function () {
-            this.wannaBuy=true;
+            this.wannaBuy = true;
             this.ga_btn('product_buy')
         },
         onRecipe: function (id) {
-            this.recipeChannel=id;
-            this.popChannel="recipe";
-            this.ga_btn('recipe_'+(id+1))
-            
+            this.recipeChannel = id;
+            this.popChannel = "recipe";
+            this.ga_btn('recipe_' + (id + 1))
+
         },
 
     }

@@ -1,6 +1,6 @@
 var vueDataQA = {
     state: 'question',
-    score: 0,
+    // score: 0,
     userAnswerNow: -1,
     index: 0,
     question: [

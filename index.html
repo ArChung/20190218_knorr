@@ -31,6 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>       
     <!-- Swiper JS Vue -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper@3.1.2/dist/vue-awesome-swiper.js"></script>
@@ -654,17 +655,17 @@
                     <!-- form pop -->
                     <transition name='qa'> 
                         <div class="formPop f18 container" v-if='popChannel=="form"'>
-                            <form action="http://172.104.70.6/knorr/store.php" method="POST" @submit="checkForm">
+                            <form >
                                 <div class="cloz" @click='popChannel=""'></div>
                                 <h1 class='ta_c ls-1 gTxt fwb f32'>資料要填寫正確<br>才能參加抽獎唷
                                 </h1>
                                 <div class="styled-inputWrap mt_s">
                                     <div class="txt">token：</div>
-                                    <input type="text" name='token' value="MTU1MDQ1NDg5MjNjZjU1OWJiZWJhOGVlZTAyY2EwMDhiNmZlNGJjYjJjZjcxMmU4MWJod1hGU3NENDU1WE84akI0QjFONjRDb1F0QmxPMGhTRA==">
+                                    <input type="text" name='token' id='token' value="MTU1MDQ1NDg5MjNjZjU1OWJiZWJhOGVlZTAyY2EwMDhiNmZlNGJjYjJjZjcxMmU4MWJod1hGU3NENDU1WE84akI0QjFONjRDb1F0QmxPMGhTRA==">
                                 </div>
                                 <div class="styled-inputWrap mt_s">
                                     <div class="txt">score：</div>
-                                    <input type="text" v-model="qa.score" name='score'>
+                                    <input type="text" v-model="userData.score" name='score'>
                                 </div>
                                 <div class="styled-inputWrap mt_s">
                                     <div class="txt">姓名：</div>
@@ -737,8 +738,8 @@
                                         <div class="txt f12">我已詳讀<a href="?page=rule" target='_blank' class='underline'>活動辦法與蒐集個人資料聲明</a>。</div>
                                     </label>
                                 </div>
-                                <!-- <div type="submit" class="mx_a gBtn mt_s" @click='checkForm'>完成送出</div> -->
-                                <input type="submit" value="完成送出" class="mx_a gBtn mt_s">
+                                <div type="submit" class="mx_a gBtn mt_s" @click='checkForm'>完成送出</div>
+                                <!-- <input type="submit" value="完成送出" class="mx_a gBtn mt_s"> -->
                             </form>
                         </div>
                     </transition>
