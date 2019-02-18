@@ -1,12 +1,15 @@
 Vue.use(VueAwesomeSwiper)
+
+
+
 var vm = null;
 
 var app = new Vue({
     el: '#app',
     data: {
-        pageChannel: 'rule',
+        pageChannel: 'mainPage',
         popChannel: '',
-        introAnimation: false,
+        introAnimation: true,
         recipeChannel: 0,
         introAni: null,
         htmlScollPosition: 0,

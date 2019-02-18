@@ -5150,6 +5150,7 @@ h3 {
 
 #rule {
   background-image: url("../images/bg.jpg");
+  background-size: 100% auto;
 }
 #rule .container {
   padding: 100px 30px;
