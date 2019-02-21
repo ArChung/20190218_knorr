@@ -62,4 +62,5 @@ try {
 
 echo json_encode([
     'status' =>  0,
+    'sn' => md5($result)
 ]);
