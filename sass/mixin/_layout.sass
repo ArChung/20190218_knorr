@@ -7,6 +7,12 @@
 =pc 
 	@media screen and (min-width: $phone+1)
 		@content 	
+=phone2 
+	@media screen and (max-width: 1196px)
+		@content 
+=pc2 
+	@media screen and (min-width: 1197px)
+		@content 	
 =bgi($pic-name)
 	@if file_exists("images/#{$pic-name}")
 		background-image: url("../images/#{$pic-name}")

@@ -5,6 +5,7 @@
 	top: 0
 	left: 15px
 	z-index: 999
+	cursor: pointer
 #menuBtn
 	+bg('menu.png')
 	position: fixed
@@ -466,17 +467,16 @@
 	background-color: #4C9703
 	color: #fff					
 
-#menu
-	+phone 
-		height: 100%
-		
+#menu	
 	position: fixed
 	width: 100%
 	top: 0
 	left: 0
 	z-index: 20
-	+phone
+	+phone2
 		+bgi('sky.jpg')
+		background-size: 100% auto
+		height: 100%
 		display: flex
 		justify-content: center
 		align-items: center
@@ -486,30 +486,29 @@
 		position: absolute
 		top: 25px
 		right: 25px
-		// +phone 
-		// 	right: 30px
+		display: none
 		+dTime(.2s)
 		&:hover
 			+rotate(90deg)	
-		+pc 
-			display: none
+		+phone2 
+			display: block
 	a:hover 
 		text-decoration: none
 	.inner
-		+pc 
-			background-color: white
+		+pc2 
+			background-color: #fffee7
 			height: 55px
-			// line-height: 80px
 			display: flex
 			justify-content: flex-end
 			align-items: center
 			font-size: 18px
 	.mBtn
 		cursor: pointer
-		+phone
+		display: block
+		+phone2
 			padding: 15px
 			border-bottom: 1px solid rgba(51, 132, 57, 0.41)
-		+pc
+		+pc2
 			padding: 0 20px
 			border-bottom: 0
 			display: inline-block
@@ -523,11 +522,11 @@
 	.socialWrap
 		display: flex
 			
-		+phone 
+		+phone2 
 			margin-top: 30px
 			justify-content: space-around 
 		> a 
-			+pc
+			+pc2
 				display: flex
 				align-items: center
 				margin-right: 20px
@@ -540,37 +539,11 @@
 		.fbBtn	
 			+bg('fb.png')
 		.pic 
-			+scale(.8)
+			+pc2
+				+scale(.6)
 			flex-shrink: 0
-			+phone
+			+phone2
 				margin: 0 auto
-	// 	.txt
-	// 		+phone
-	// 			text-align: center 
-	// 		+pc 
-	// 			display: inline-block
-	// 			vertical-align: text-top
-
-	// 	.websiteBtn
-	// 		+bg('web.png')
-	// 		margin: 0 auto
-	// 	.fbBtn	
-	// 		+bg('fb.png')
-	// 		margin: 0 auto
-	// 	.pic
-	// 		+pc 
-	// 			display: inline-block
-	// 			vertical-align: text-top
-	// 	+phone
-	// 		display: flex
-	// 		justify-content: space-around
-	// 		margin-top: 30px
-		
-	// 	+pc 
-	// 		display: inline-block
-	// 		vertical-align: text-top
-	// 		> * 
-	// 			display: inline-block
 
 #rule
 	+bgi('bg.jpg')
@@ -617,6 +590,7 @@
 		right: 20px
 #product
 	+bgi('bg.jpg')
+	background-size: 100% auto
 	.container
 		padding: 100px 30px
 		margin: 0 auto

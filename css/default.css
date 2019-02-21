@@ -4252,6 +4252,7 @@ h3 {
   top: 0;
   left: 15px;
   z-index: 999;
+  cursor: pointer;
 }
 
 #menuBtn {
@@ -5032,14 +5033,11 @@ h3 {
   left: 0;
   z-index: 20;
 }
-@media screen and (max-width: 768px) {
-  #menu {
-    height: 100%;
-  }
-}
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1196px) {
   #menu {
     background-image: url("../images/sky.jpg");
+    background-size: 100% auto;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -5053,6 +5051,7 @@ h3 {
   position: absolute;
   top: 25px;
   right: 25px;
+  display: none;
   -moz-transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -o-transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -webkit-transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -5064,17 +5063,17 @@ h3 {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-@media screen and (min-width: 769px) {
+@media screen and (max-width: 1196px) {
   #menu .cloz {
-    display: none;
+    display: block;
   }
 }
 #menu a:hover {
   text-decoration: none;
 }
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1197px) {
   #menu .inner {
-    background-color: white;
+    background-color: #fffee7;
     height: 55px;
     display: flex;
     justify-content: flex-end;
@@ -5084,14 +5083,15 @@ h3 {
 }
 #menu .mBtn {
   cursor: pointer;
+  display: block;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1196px) {
   #menu .mBtn {
     padding: 15px;
     border-bottom: 1px solid rgba(51, 132, 57, 0.41);
   }
 }
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1197px) {
   #menu .mBtn {
     padding: 0 20px;
     border-bottom: 0;
@@ -5109,13 +5109,13 @@ h3 {
 #menu .socialWrap {
   display: flex;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1196px) {
   #menu .socialWrap {
     margin-top: 30px;
     justify-content: space-around;
   }
 }
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1197px) {
   #menu .socialWrap > a {
     display: flex;
     align-items: center;
@@ -5136,13 +5136,17 @@ h3 {
   background-image: url("../images/fb.png");
 }
 #menu .socialWrap .pic {
-  -moz-transform: scale(0.8, 0.8);
-  -ms-transform: scale(0.8, 0.8);
-  -webkit-transform: scale(0.8, 0.8);
-  transform: scale(0.8, 0.8);
   flex-shrink: 0;
 }
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1197px) {
+  #menu .socialWrap .pic {
+    -moz-transform: scale(0.6, 0.6);
+    -ms-transform: scale(0.6, 0.6);
+    -webkit-transform: scale(0.6, 0.6);
+    transform: scale(0.6, 0.6);
+  }
+}
+@media screen and (max-width: 1196px) {
   #menu .socialWrap .pic {
     margin: 0 auto;
   }
@@ -5216,6 +5220,7 @@ h3 {
 
 #product {
   background-image: url("../images/bg.jpg");
+  background-size: 100% auto;
 }
 #product .container {
   padding: 100px 30px;
@@ -5558,6 +5563,10 @@ h3 {
   display: none !important;
 }
 
+.phoneShow2 {
+  display: none !important;
+}
+
 @media screen and (max-width: 1024px) {
   .padShow {
     display: block !important;
@@ -5586,6 +5595,15 @@ h3 {
 
   .phoneShow.hide {
     display: none !important;
+  }
+}
+@media screen and (max-width: 1196px) {
+  .phoneHide2 {
+    display: none !important;
+  }
+
+  .phoneShow2 {
+    display: block !important;
   }
 }
 
