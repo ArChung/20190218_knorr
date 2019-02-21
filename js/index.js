@@ -9,7 +9,7 @@ const router = new VueRouter({
     routes: [{
         path: '/rule',
         component: template_rule
-    },{
+    }, {
         path: '/product/:proid?',
         component: template_product
     }, {
@@ -163,7 +163,7 @@ var app = new Vue({
             switch (goto) {
                 case 'logo':
                     this.pageScrollAni('#index')
-                break;
+                    break;
                 case 'map':
                     this.pageScrollAni('#intro')
                     break;
@@ -185,7 +185,7 @@ var app = new Vue({
                     this.pageScrollAni('#winner')
                     this.ga_page('P5_rule')
                     break;
-            } 
+            }
         },
         pageScrollAni: function (el) {
             var $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
@@ -229,7 +229,7 @@ var app = new Vue({
             } else {
                 this.qa.state = 'result';
             }
-            
+
 
         },
         onAnswer: function () {
@@ -263,7 +263,7 @@ var app = new Vue({
             this.ga_btn('uslp_' + (id + 1))
 
         },
-        
+
         preventScroll: function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -313,18 +313,47 @@ var app = new Vue({
             // console.log 全部資料
             console.log(this.userData);
             // api url
-            var apiUrl = './store.php';
+            // var apiUrl = './store.php';
 
 
-            axios.post(apiUrl, this.userData)
-                // 成功
-                .then(function (response) {
-                    console.log(response);
-                })
-                // 失敗
-                .catch(function (error) {
-                    console.log(error);
-                });
+            // axios.post(apiUrl, this.userData)
+            //     // 成功
+            //     .then(function (response) {
+            //         console.log(response);
+            //     })
+            //     // 失敗
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+
+
+            axios({
+                method: 'post',
+                url: './store.php',
+                // 利用 transformRequest 进行转换配置
+                transformRequest: [
+                    function (oldData) {
+                        // console.log(oldData)
+                        let newStr = ''
+                        for (let item in oldData) {
+                            newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&'
+                        }
+                        newStr = newStr.slice(0, -1)
+                        return newStr
+                    }
+                ],
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: this.userData,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            // 失敗
+            .catch(function (error) {
+                console.log(error);
+            });
         },
         validEmail: function (email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -363,7 +392,7 @@ var app = new Vue({
         unLockScroll: function () {
             var html = $('body');
             var scrollPosition = this.htmlScollPosition;
-            scrollPosition=(scrollPosition==0)?1:scrollPosition;
+            scrollPosition = (scrollPosition == 0) ? 1 : scrollPosition;
             if (scrollPosition) {
                 html.css('overflow', 'auto');
                 window.scrollTo(0, scrollPosition);
