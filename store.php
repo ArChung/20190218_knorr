@@ -41,7 +41,7 @@ if(!empty($_POST['token'])) {
 
 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING|FILTER_VALIDATE_EMAIL);
+$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $marriage = filter_input(INPUT_POST, 'marriage', FILTER_SANITIZE_STRING);
 $hasChild = filter_input(INPUT_POST, 'hasChild', FILTER_SANITIZE_STRING);
 $child = filter_input(INPUT_POST, 'child', FILTER_SANITIZE_STRING);
@@ -54,13 +54,23 @@ $optin_cmpgn = intval($optin_cmpgn);
 
 $name = preg_replace('/[<>"%()&+\\/\?\n\r\t]/', '', $name);
 
+if($email === false){
+    echo '{"status": 1, "msg": "email"}';
+    exit;
+}
+
 if(!preg_match('/^09/', $phone)) {
-    echo '{"status": 1}';
+    echo '{"status": 1, "msg": "phone"}';
+    exit;
+}
+
+if(strlen($phone)!=10) {
+    echo '{"status": 1, "msg": "phpone"}';
     exit;
 }
 
 if($optin_cmpgn!=1) {
-    echo '{"status": 1}';
+    echo '{"status": 1, "msg": "optin_cmpgn"}';
     exit;
 }
 
