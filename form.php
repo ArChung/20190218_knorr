@@ -2,6 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
+// echo '<pre>';print_r($_SERVER);echo '</pre>';die;
+
 session_start();
 
 $sessionProvider = new EasyCSRF\NativeSessionProvider();
@@ -33,7 +35,9 @@ $token = $easyCSRF->generate('knorr');
         <input type="text" name="marriage" id="" class="form-control" value="0" >
         <input type="text" name="hasChild" id="" class="form-control" value="0" >
         <input type="text" name="child" id="" class="form-control" value="[]" >
-        <input type="text" name="agreeToSendMeInfo" id="" class="form-control" value="1" >
+        <p></p>
+        我同意接收聯合利華及其合作夥伴的市場推廣資訊<input type="text" name="remktg_consent" id="" class="form-control" value="1" >
+        我已詳細閱讀活動辦法與蒐集個人資料聲明<input type="text" name="optin_cmpgn" id="" class="form-control" value="1" >
         <input type="text" name="score" id="" class="form-control" value="5" >
         <div>
             <button type="submit" class="btn btn-primary">Submit</button>

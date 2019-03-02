@@ -31,9 +31,8 @@ CREATE TABLE `users` (
   `hasChild` tinyint(1) NOT NULL DEFAULT 0,
   `child` varchar(512) NOT NULL,
   `agreeToSendMeInfo` tinyint(1) NOT NULL DEFAULT 0,
-  `score` int(3) NOT NULL DEFAULT 0,
-  `created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `score` int(3) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 已傾印資料表的索引

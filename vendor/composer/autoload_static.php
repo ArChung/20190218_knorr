@@ -7,11 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit55990dfefe8b795413746c9761ad54f0
 {
     public static $prefixLengthsPsr4 = array (
-        'P' => 
-        array (
-            'ParagonIE\\EasyDB\\' => 17,
-            'ParagonIE\\Corner\\' => 17,
-        ),
         'E' => 
         array (
             'EasyCSRF\\' => 9,
@@ -19,14 +14,6 @@ class ComposerStaticInit55990dfefe8b795413746c9761ad54f0
     );
 
     public static $prefixDirsPsr4 = array (
-        'ParagonIE\\EasyDB\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/paragonie/easydb/src',
-        ),
-        'ParagonIE\\Corner\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/paragonie/corner/src',
-        ),
         'EasyCSRF\\' => 
         array (
             0 => __DIR__ . '/..' . '/gilbitron/easycsrf/src',
