@@ -2,6 +2,13 @@
 
 require_once 'vendor/autoload.php';
 
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+    $location = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $location);
+    exit;
+}
+
 session_start();
 
 $sessionProvider = new EasyCSRF\NativeSessionProvider();
@@ -232,7 +239,7 @@ $token = $easyCSRF->generate('knorr');
                                 <input type="text" v-model="userData.name" name='name'>
                             </div>
                             <div class="styled-inputWrap mt_s">
-                                <div class="txt">電話：</div>
+                                <div class="txt">手機：</div>
                                 <input type="text" v-model="userData.phone" @keyup='onlyNum' name='phone'>
                             </div>
                             <div class="styled-inputWrap mt_s">
@@ -243,11 +250,11 @@ $token = $easyCSRF->generate('knorr');
                                 <div class="txt">婚姻：</div>
                                 <div class="checkBoxs df">
                                     <label>
-                                        <input class="styled-checkbox small" name="marriage" type="radio" v-model="userData.marriage" value="married">
+                                        <input class="styled-checkbox small" name="marriage" type="radio" v-model="userData.marriage" value='1'>
                                         <div class="txt">已婚</div>
                                     </label>
                                     <label>
-                                        <input class="styled-checkbox small" name="marriage" type="radio" v-model="userData.marriage" value="unmarried">
+                                        <input class="styled-checkbox small" name="marriage" type="radio" v-model="userData.marriage" value='0'>
                                         <div class="txt">未婚</div>
                                     </label>
                                 </div>
@@ -256,17 +263,17 @@ $token = $easyCSRF->generate('knorr');
                                 <div class="txt">小孩：</div>
                                 <div class="checkBoxs df">
                                     <label>
-                                        <input class="styled-checkbox small" name="hasChild" type="radio" v-model="userData.hasChild" value="true">
+                                        <input class="styled-checkbox small" name="hasChild" type="radio" v-model="userData.hasChild" value='1'>
                                         <div class="txt">有</div>
                                     </label>
                                     <label>
-                                        <input class="styled-checkbox small" name="hasChild" type="radio" v-model="userData.hasChild" value="false" @click='userData.child=[]'>
+                                        <input class="styled-checkbox small" name="hasChild" type="radio" v-model="userData.hasChild" @click='userData.child=[]' value='0'>
                                         <div class="txt">沒有</div>
                                     </label>
                                 </div>
                             </div>
                             <transition name="fadeInLeft" mode="">
-                                <div class="checkBoxWrap df" v-if="userData.hasChild=='true'">
+                                <div class="checkBoxWrap df" v-if="userData.hasChild=='1'">
                                     <div class="txt"></div>
                                     <div class="checkBoxs df fww">
                                         <label>
@@ -290,12 +297,12 @@ $token = $easyCSRF->generate('knorr');
                             </transition>
                             <div class="mt_m">
                                 <label>
-                                    <input class="styled-checkbox small" name="agreeToSendMeInfo" type="checkbox" v-model='userData.agreeToSendMeInfo'>
-                                    <div class="txt f12">我同意接收聯合利華及其合作夥伴的市場推廣資訊。（<a href="./#/rule?page=detail" target="_blank" class='underline'>相關細節</a>）</div>
+                                    <input class="styled-checkbox small" name="remktg_consent" type="checkbox" v-model='userData.remktg_consent' :true-value="1" :false-value="0">
+                                    <div class="txt f12">我同意接收聯合利華及其合作夥伴的市場推廣資訊。（<a href="./#/rule?page=detail" target="_blank" class='underline linkColor fwb'>相關細節</a>）</div>
                                 </label>
                                 <label>
-                                    <input class="styled-checkbox small" type="checkbox" v-model='userData.agreeRule'>
-                                    <div class="txt f12">我已詳讀<a href="./#/rule" target='_blank' class='underline'>活動辦法與蒐集個人資料聲明</a>。</div>
+                                    <input class="styled-checkbox small" type="checkbox" v-model='userData.optin_cmpgn' :true-value="1" :false-value="0">
+                                    <div class="txt f12">我已經詳細閱讀<a href="https://campaign.knorr.com.tw/sustainable-farm/#/rule" target='_blank' class='underline linkColor fwb'>活動辦法</a>與<a href="https://www.unileverprivacypolicy.com/traditional_chinese/policy.aspx" target='_blank' class='underline linkColor fwb'>蒐集個人資料聲明</a>。</div>
                                 </label>
                             </div>
                             <div type="submit" class="mx_a gBtn mt_s" @click='checkForm'>完成送出</div>
@@ -474,7 +481,7 @@ $token = $easyCSRF->generate('knorr');
                             什麼規範這麼厲害？趕緊看下去！
                         </h3>
                         <div class="video mt_b">
-                            <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="http://www.youtube.com/embed/M3pgWsxrP5A?rel=0&autoplay=0"></iframe>
+                            <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="//www.youtube.com/embed/M3pgWsxrP5A?rel=0&autoplay=0"></iframe>
                         </div>
                         <h2 class='ta_c fwb  ls-1 mt_s'>農場直擊影片</h2>
                         <!-- <div class="numBtns mt_b">
@@ -549,7 +556,7 @@ $token = $easyCSRF->generate('knorr');
 
                 <h1 class='ta_c ls-1 fwb' id='productTitle'>自然原點<br>也是美味的起點</h1>
                 <div class="video mt_b">
-                    <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="https://www.youtube.com/embed/-Hqro-UhJvE?rel=0&autoplay=0"></iframe>
+                    <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="//www.youtube.com/embed/-Hqro-UhJvE?rel=0&autoplay=0"></iframe>
                 </div>
                 <swiper ref="product_Swiper" id='product_Swiper' :options="product_SwiperOption" class='mt_b product_Swiper mx_a' @transition-end="playSwiperAni" @transition-start='onProBuyCloz'>
                     <swiper-slide v-for='data in products.products'>
@@ -608,7 +615,7 @@ $token = $easyCSRF->generate('knorr');
 
                 </div>
                 <div class="video mt_b">
-                    <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="http://www.youtube.com/embed/M3pgWsxrP5A?rel=0&autoplay=0"></iframe>
+                    <iframe allowfullscreen="" frameborder="0" height="100%" width="100%" src="//www.youtube.com/embed/M3pgWsxrP5A?rel=0&autoplay=0"></iframe>
                 </div>
             </div>
         </div>
@@ -860,7 +867,7 @@ $token = $easyCSRF->generate('knorr');
                         <p class='fwb'>Cookies </p>
                         <ul class="numList">
                             <li class="mt_m">有關我們如何使用cookies，請參考我們的Cookie Policy
-                                <a href="http://www.unilevercookiepolicy.com/en_gb/policy.aspx" target="_blank" class='tdul'>(http://www.unilevercookiepolicy.com/en_gb/policy.aspx)</a>。
+                                <a href="https://www.unilevercookiepolicy.com/tc/policy.aspx" target="_blank" class='tdul'>(https://www.unilevercookiepolicy.com/tc/policy.aspx)</a>。
                             </li>
                         </ul>
 
@@ -870,8 +877,8 @@ $token = $easyCSRF->generate('knorr');
                                 <br> (一) 得向聯合利華查詢或請求閱覽、請求製給複製本，惟聯合利華依法得酌收必要成本費用；
                                 <br> (二) 得向聯合利華請求補充或更正，惟依法您應為適當之釋明；
                                 <br> (三) 得向聯合利華請求停止蒐集、處理或利用以及請求刪除，惟依法聯合利華因執行職務所必須者，得不依您的請求為之。 </li>
-                            <li class="mt_m">如需要更多關於我們如何處理您的個人資料，請參考我們的聯合利華隱私保護政策（<a href="http://www.unileverprivacypolicy.com/traditional_chinese/policy.aspx" target="_blank" class='tdul'>http://www.unileverprivacypolicy.com/traditional_chinese/policy.aspx.</a>）。</li>
-
+                            <li class="mt_m">如需要更多關於我們如何處理您的個人資料，請參考我們的聯合利華隱私保護政策（<a href="https://www.unileverprivacypolicy.com/traditional_chinese/policy.aspx" target="_blank" class='tdul'>https://www.unileverprivacypolicy.com/traditional_chinese/policy.aspx.</a>）。</li>
+                                
                         </ul>
 
                     </div>

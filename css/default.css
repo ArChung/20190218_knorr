@@ -4270,6 +4270,13 @@ h3 {
   position: relative;
 }
 
+.linkColor {
+  color: #ff8300;
+}
+.linkColor:hover {
+  color: #ff8300;
+}
+
 .downArr {
   width: 21px;
   height: 48px;

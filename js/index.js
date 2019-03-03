@@ -43,8 +43,8 @@ var app = new Vue({
             marriage: null,
             hasChild: null,
             child: [],
-            agreeToSendMeInfo: true,
-            agreeRule: true,
+            remktg_consent: 0,
+            optin_cmpgn: 0,
             score: 0,
             token: '',
         },
@@ -276,24 +276,29 @@ var app = new Vue({
         checkForm: function (e) {
             this.ga_btn('quiz_send')
             this.formErrors = [];
+            console.log(this.userData);
             if (!this.userData.name || !this.userData.phone || !this.userData.email || !this.userData.marriage || !this.userData.hasChild) {
                 this.formErrors.push("資料要填完才能抽獎喔!");
             }
 
             if (!this.validEmail(this.userData.email)) {
-                this.formErrors.push('信箱檢查一下喔.');
+                this.formErrors.push('請輸入有效的電子郵件');
             }
 
-            if (this.userData.phone.length < 6) {
-                this.formErrors.push('電話檢查一下喔.');
+            var re = /^[09]{2}[0-9]{8}$/;;
+
+            if (!re.test(this.userData.phone)){
+                this.formErrors.push('請輸入有效的手機');
             }
 
-            if (this.userData.hasChild == 'true' && this.userData.child.length == 0) {
+            
+
+            if (this.userData.hasChild == '1' && this.userData.child.length == 0) {
                 this.formErrors.push('小孩多大了阿?.');
             }
 
-            if (!this.userData.agreeRule) {
-                this.formErrors.push('請同意活動辦法與蒐集個人資料聲明');
+            if (!this.userData.optin_cmpgn) {
+                this.formErrors.push('請勾選我已經詳細閱讀活動辦法與蒐集個人資料聲明');
             }
 
             if (this.formErrors.length == 0) {
@@ -308,28 +313,21 @@ var app = new Vue({
             e.preventDefault();
         },
         sendData: function () {
+            var t = this;
             // 抓頁面token
-            this.userData.token = $('#token').val();
+            if(!this.userData.token){
+                console.log('getTokenFromPage');
+                this.userData.token = $('#token').val();
+            }
             // console.log 全部資料
             console.log(this.userData);
             // api url
-            // var apiUrl = './store.php';
-
-
-            // axios.post(apiUrl, this.userData)
-            //     // 成功
-            //     .then(function (response) {
-            //         console.log(response);
-            //     })
-            //     // 失敗
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
+            var apiUrl = './store.php';
 
 
             axios({
                 method: 'post',
-                url: './store.php',
+                url: apiUrl,
                 // 利用 transformRequest 进行转换配置
                 transformRequest: [
                     function (oldData) {
@@ -349,6 +347,7 @@ var app = new Vue({
             })
             .then(function (response) {
                 console.log(response);
+                t.userData.token = response.data.token;
             })
             // 失敗
             .catch(function (error) {
@@ -376,7 +375,7 @@ var app = new Vue({
             this.ga_btn('recipe_' + (t.recipeChannel + 1))
         },
         onRecipe: function (id) {
-            console.log(id);
+            // console.log(id);
             this.recipeChannel = id;
             this.popChannel = "recipe";
             this.ga_btn('recipe_' + (id + 1))

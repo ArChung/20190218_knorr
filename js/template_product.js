@@ -117,12 +117,12 @@ var template_product = {
         onProBuy: function () {
             this.ga_btn('product_buy');
             $('#product_Swiper .buyBtn').addClass('hide');
-            simpleShow($('#product_Swiper .shopBtns'))
-            // $('#product_Swiper .shopBtns').removeClass('hide');
+            $('#product_Swiper .shopBtns').removeClass('hide');
         },
         onProBuyCloz: function () {
             $('#product_Swiper .shopBtns').addClass('hide');
-            simpleShow($('#product_Swiper .buyBtn'))
+            $('#product_Swiper .buyBtn').removeClass('hide');
+            
         },
     }
 }

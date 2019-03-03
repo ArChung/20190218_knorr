@@ -99,7 +99,7 @@ vueDataPlants = {
             className: 'plat2',
             enName: 'pumpkin',
             picUrl: 'images/r0.png',
-            info: '這些南瓜，我阿康伯都把它當成金孫惜命命！特別裝了滴灌設施，均勻灑水，不會浪費水資源。這樣養出來的南瓜，才會又大又好！',
+            info: '這些南瓜，我阿康伯都把它當成金孫惜命命！特別裝了滴灌設施，集中肥水讓南瓜更好吸收，還可以節省水資源。這樣養出來的南瓜，才會又大又好！',
             productArr: ['products/pp_9.png'],
             tagName: '#友善地球栽種規範 #善用水資源',
             urlLink: [],
