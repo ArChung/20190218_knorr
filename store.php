@@ -1,17 +1,26 @@
 <?php
 
+// echo '<pre>';print_r($_SERVER);echo '</pre>';die;
+
 require_once 'vendor/autoload.php';
 
 header('Content-Type: application/json');
 
-$db = \ParagonIE\EasyDB\Factory::create(
-    'mysql:host=localhost;dbname=knorr',
-    'root',
-    'longlong'
-);
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
+    echo '{"status": 1}';
+    exit;
+}
 
 // print_r($_POST);
 session_start();
+
+$dbConnString = 'mysql:charset=utf8;host=localhost; dbname=knorr_farm';
+try {
+    $dbh = new PDO($dbConnString, 'knorr', '6hbtXaYKrPmR32vU');
+    $dbh->exec('set names utf8');
+} catch (Exception $Exception) {
+    die('db error');
+}
 
 $sessionProvider = new EasyCSRF\NativeSessionProvider();
 $easyCSRF = new EasyCSRF\EasyCSRF($sessionProvider);
@@ -21,46 +30,75 @@ if(!empty($_POST['token'])) {
         $easyCSRF->check('knorr', $_POST['token']);
     }
     catch(Exception $e) {
-        echo json_encode([
-            'status' =>  1,
-            'msg' => $e->getMessage()
-        ]);
+        echo '{"status": 1}';
         exit;
     }
 }else{
-    echo json_encode([
-            'status' =>  1,
-            'msg' => ''
-        ]);
+    echo '{"status": 1}';
     exit;
 }
 
+// print_r($_POST);
+
 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING|FILTER_SANITIZE_EMAIL|FILTER_VALIDATE_EMAIL);
-$marriage = filter_input(INPUT_POST, 'marriage', FILTER_SANITIZE_STRING|FILTER_VALIDATE_BOOLEAN);
-$hasChild = filter_input(INPUT_POST, 'hasChild', FILTER_SANITIZE_STRING|FILTER_VALIDATE_BOOLEAN);
+$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+$marriage = filter_input(INPUT_POST, 'marriage', FILTER_SANITIZE_STRING);
+$hasChild = filter_input(INPUT_POST, 'hasChild', FILTER_SANITIZE_STRING);
 $child = filter_input(INPUT_POST, 'child', FILTER_SANITIZE_STRING);
-$agreeToSendMeInfo = filter_input(INPUT_POST, 'agreeToSendMeInfo', FILTER_SANITIZE_STRING|FILTER_VALIDATE_BOOLEAN);
+$remktg_consent = filter_input(INPUT_POST, 'remktg_consent', FILTER_SANITIZE_STRING);
+$optin_cmpgn = filter_input(INPUT_POST, 'optin_cmpgn', FILTER_SANITIZE_STRING);
 $score = filter_input(INPUT_POST, 'score', FILTER_SANITIZE_STRING);
 
-try {
-    $result = $db->insert('users', [
-        'name' => $name,
-        'phone' => $phone,
-        'email' => $email,
-        'marriage' => $marriage,
-        'hasChild' => $hasChild,
-        'child' => $child,
-        'agreeToSendMeInfo' => $agreeToSendMeInfo,
-        'score' => $score,
-    ]);
-} catch (\Throwable $th) {
-    throw $th;
-}
-// print_r($result);
+$remktg_consent = intval($remktg_consent);
+$optin_cmpgn = intval($optin_cmpgn);
 
-echo json_encode([
-    'status' =>  0,
-    'sn' => md5($result)
-]);
+$name = preg_replace('/[<>"%()&+\\/\?\n\r\t]/', '', $name);
+
+if($email === false){
+    echo '{"status": 1, "msg": "email"}';
+    exit;
+}
+
+if(!preg_match('/^09[0-9]{8}$/', $phone)) {
+    echo '{"status": 1, "msg": "phone"}';
+    exit;
+}
+
+if($optin_cmpgn!=1) {
+    echo '{"status": 1, "msg": "optin_cmpgn"}';
+    exit;
+}
+
+try {
+    $sql = 'INSERT INTO users SET name=?, phone=?, email=?, marriage=?, hasChild=?, child=?, remktg_consent=?, optin_cmpgn=?, score=?, time_create=NOW()';
+    $stmt = $dbh->prepare($sql);
+    $result = $stmt->execute(array(
+        $name,
+        $phone,
+        $email,
+        $marriage,
+        $hasChild,
+        $child,
+        $remktg_consent,
+        $optin_cmpgn,
+        $score
+    ));
+    $user_id = $dbh->lastInsertId();
+    if(!$result) {
+      echo '{"status": 1, "msg": "db insert error"}';
+      exit;
+    }
+    
+} catch (Exception $th) {
+    // throw $th;
+    // print_r($th);
+}
+
+
+$sessionProvider = new EasyCSRF\NativeSessionProvider();
+$easyCSRF = new EasyCSRF\EasyCSRF($sessionProvider);
+
+$token = $easyCSRF->generate('knorr');
+
+echo '{"status": 0, "sn": "'.($user_id*56789).'","token": "'.$token.'"}';

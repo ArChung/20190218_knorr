@@ -7,7 +7,6 @@
         }
     ],
     "require": {
-        "gilbitron/easycsrf": "^1.0",
-        "paragonie/easydb": "^2.8"
+        "gilbitron/easycsrf": "^1.0"
     }
 }
