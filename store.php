@@ -60,11 +60,23 @@ if($email === false){
     exit;
 }
 
+<<<<<<< HEAD
 if(!preg_match('/^09[0-9]{8}$/', $phone)) {
+=======
+if(!preg_match('/^09/', $phone)) {
+>>>>>>> 56974d0e5e3ddc805c2c93c70943c7eb894db00d
     echo '{"status": 1, "msg": "phone"}';
     exit;
 }
 
+<<<<<<< HEAD
+=======
+if(strlen($phone)!=10) {
+    echo '{"status": 1, "msg": "phpone"}';
+    exit;
+}
+
+>>>>>>> 56974d0e5e3ddc805c2c93c70943c7eb894db00d
 if($optin_cmpgn!=1) {
     echo '{"status": 1, "msg": "optin_cmpgn"}';
     exit;
@@ -73,7 +85,11 @@ if($optin_cmpgn!=1) {
 try {
     $sql = 'INSERT INTO users SET name=?, phone=?, email=?, marriage=?, hasChild=?, child=?, remktg_consent=?, optin_cmpgn=?, score=?, time_create=NOW()';
     $stmt = $dbh->prepare($sql);
+<<<<<<< HEAD
     $result = $stmt->execute(array(
+=======
+    $stmt->execute(array(
+>>>>>>> 56974d0e5e3ddc805c2c93c70943c7eb894db00d
         $name,
         $phone,
         $email,
@@ -85,10 +101,13 @@ try {
         $score
     ));
     $user_id = $dbh->lastInsertId();
+<<<<<<< HEAD
     if(!$result) {
       echo '{"status": 1, "msg": "db insert error"}';
       exit;
     }
+=======
+>>>>>>> 56974d0e5e3ddc805c2c93c70943c7eb894db00d
     
 } catch (Exception $th) {
     // throw $th;

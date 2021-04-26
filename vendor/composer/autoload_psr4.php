@@ -6,7 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ParagonIE\\EasyDB\\' => array($vendorDir . '/paragonie/easydb/src'),
-    'ParagonIE\\Corner\\' => array($vendorDir . '/paragonie/corner/src'),
     'EasyCSRF\\' => array($vendorDir . '/gilbitron/easycsrf/src'),
 );
