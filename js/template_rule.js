@@ -15,11 +15,18 @@ var template_rule = {
     },
     mounted: function () {
         var t = this;
+        console.log(this.$route.query.page)
         switch(this.$route.query.page){
+            
+            case 'personalData':
+                t.ruleSwitch.s6 = true;
+                t.pageScrollAni('#personalData');
+                console.log( t.ruleSwitch.s6 )
+                break;
             case 'detail':
                 t.ruleSwitch.s6 = true;
-                t.pageScrollAni('#detail')
-                break
+                t.pageScrollAni('#detail');
+                break;
         }
         
     },

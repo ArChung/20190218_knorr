@@ -58,6 +58,9 @@ var app = new Vue({
     },
     mounted: function () {
         var t = this;
+
+
+
         $('body').on('click', '.gaBtn', function (e) {
             var tt = ($(e.target).hasClass('gaBtn')) ? $(e.target) : $(e.target).closest('.gaBtn');
             t.ga_btn(tt.attr('data-ga'));
@@ -285,13 +288,19 @@ var app = new Vue({
                 this.formErrors.push('請輸入有效的電子郵件');
             }
 
-            var re = /^[09]{2}[0-9]{8}$/;;
+            // var nameReg = /[\\\/&+"'%()?<>？（）％＆“‘”’＋｜、]/g;
+            var nameReg = /[^\u4e00-\u9fa5A-Za-z0-9\s\t\n]/g;
+            if (nameReg.test(this.userData.name)) {
+                this.formErrors.push('請檢查姓名');
+            }
 
-            if (!re.test(this.userData.phone)){
+            var re = /^[09]{2}[0-9]{8}$/;
+
+            if (!re.test(this.userData.phone)) {
                 this.formErrors.push('請輸入有效的手機');
             }
 
-            
+
 
             if (this.userData.hasChild == '1' && this.userData.child.length == 0) {
                 this.formErrors.push('小孩多大了阿?.');
@@ -315,7 +324,7 @@ var app = new Vue({
         sendData: function () {
             var t = this;
             // 抓頁面token
-            if(!this.userData.token){
+            if (!this.userData.token) {
                 console.log('getTokenFromPage');
                 this.userData.token = $('#token').val();
             }
@@ -326,33 +335,44 @@ var app = new Vue({
 
 
             axios({
-                method: 'post',
-                url: apiUrl,
-                // 利用 transformRequest 进行转换配置
-                transformRequest: [
-                    function (oldData) {
-                        // console.log(oldData)
-                        let newStr = ''
-                        for (let item in oldData) {
-                            newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&'
+                    method: 'post',
+                    url: apiUrl,
+                    // 利用 transformRequest 进行转换配置
+                    transformRequest: [
+                        function (oldData) {
+                            // console.log(oldData)
+                            let newStr = ''
+                            for (let item in oldData) {
+                                newStr += encodeURIComponent(item) + '=' + encodeURIComponent(oldData[item]) + '&'
+                            }
+                            newStr = newStr.slice(0, -1)
+                            return newStr
                         }
-                        newStr = newStr.slice(0, -1)
-                        return newStr
-                    }
-                ],
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: this.userData,
-            })
-            .then(function (response) {
-                console.log(response);
-                t.userData.token = response.data.token;
-            })
-            // 失敗
-            .catch(function (error) {
-                console.log(error);
-            });
+                    ],
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: this.userData,
+                })
+                .then(function (response) {
+                    console.log(response);
+
+
+                    t.userData.name = '';
+                    t.userData.phone = '';
+                    t.userData.email = '';
+                    t.userData.marriage = null;
+                    t.userData.hasChild = null;
+                    t.userData.child = [];
+                    t.userData.remktg_consent = 0;
+                    t.userData.optin_cmpgn = 0;
+                    t.userData.token = response.data.token;
+
+                })
+                // 失敗
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         validEmail: function (email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

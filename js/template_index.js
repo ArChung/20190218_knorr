@@ -9,19 +9,19 @@ var template_index = {
             animal: vueDataAnimal,
             plant: vueDataPlants,
             elements: vueDataElements,
-            
+
         }
     },
     created: function () {
         vm_index = this;
-        
+
     },
     computed: {
-        
+
     },
     mounted: function () {
         var t = this;
-        if (t.introAnimation ) {
+        if (t.introAnimation) {
             t.initAnimation();
         }
         t.initAutoDemo();
